@@ -8,5 +8,9 @@ public class first {
 		String query = input.nextLine();
 		tokenObject.QuerytoToken(query);
 		System.out.println("thank you ");
+		fileScanner fileScannerObject = new fileScanner();
+		String[] a = null;
+		fileScannerObject.FilteredFileList(a);
+		
 	}
 }
