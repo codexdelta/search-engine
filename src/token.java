@@ -3,6 +3,8 @@ import java.io.*;
 
 
 public class token {
+	public ArrayList<String> StemWords = new ArrayList<String>();
+	
 	public void QuerytoToken(String query){
 		int tokens = 0;
 		System.out.println("Your code is working!");
@@ -23,25 +25,7 @@ public class token {
 		}
 	}
 		
-		//below code will work as stemmer 
-		
-		
-//		 for (int a=0; a<al.size(); a++ ) {
-//		      System.out.println("token "+ a +" = " + al.get(a));
-//		      String queryterm = al.get(a);
-////		      System.out.println(queryterm);
-////		      String test =  "This is a sentence";
-////		      String lastWord = test.substring(test.lastIndexOf(" ")+1);
-////		      System.out.println(lastWord);
-////		      String str2 = "ence";
-////		      if(lastWord.toLowerCase().contains(str2.toLowerCase())){
-////		    	  System.out.println("yes sub string present");
-////		      }
-//		      
-//		 } 
-//		
-		
-	
+		//below code will work as stemmer	
 
 	private void Stemmer(String stemTerm) {
 		// TODO Auto-generated method stub
@@ -63,12 +47,12 @@ public class token {
 	                   String tmp1 = st.nextToken().toLowerCase();
 	                   if(tmp.endsWith(tmp1)){
 	                	  //strip off the suffix and check whether the new word is present in dic
-	                	   System.out.println("length of the suffix:" + tmp1.length());
-	                	   
-	                	   System.out.println(tmp.substring(stemtermlength, tmp1.length()));
-	                	   System.out.println(tmp);
+//	                	   System.out.println("length of the suffix:" + tmp1.length());
+	                	   String PrimaryStemWords =tmp.substring(0, tmp.length()-tmp1.length());
+	                	   DictionaryTokenCheck(PrimaryStemWords);
+//	                	   System.out.println(PrimaryStemWords);
 	               
-	                	   System.out.println("got your term " + tmp1);
+//	                	   System.out.println("got your term " + tmp1);
 	                	   
 	                   }
 	                  
@@ -84,7 +68,13 @@ public class token {
 	       }
 		}
 	
+	public void DictionaryTokenCheck(String PrimaryStemWords){
+		StemWords.add(PrimaryStemWords);
+		System.out.println(StemWords.get(0));
+		
+		
 	}
+}
 
 	       
 

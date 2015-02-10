@@ -21,12 +21,12 @@ public static void main(String[] args)
 	
 	String[] a = null;
 	fileScannerObject.FilteredFileList(a);
-    WordCount mdc = new WordCount();
-    Map<String, Integer> wordMap = mdc.getWordCount("ashwin.txt");
-    List<Entry<String, Integer>> list = mdc.sortByValue(wordMap);
-    for(Map.Entry<String, Integer> entry:list){
-        System.out.println(entry.getKey()+" ==== "+entry.getValue());
-    }
+//    WordCount mdc = new WordCount();
+//    Map<String, Integer> wordMap = mdc.getWordCount("ashwin.txt");
+//    List<Entry<String, Integer>> list = mdc.sortByValue(wordMap);
+//    for(Map.Entry<String, Integer> entry:list){
+//        System.out.println(entry.getKey()+" ==== "+entry.getValue());
+//    }
 
 	}
 }
