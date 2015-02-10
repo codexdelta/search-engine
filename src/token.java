@@ -18,7 +18,7 @@ public class token {
 		
 		for(int x=0; x<al.size(); x++){
 			String stemTerm = al.get(x);
-			stemmer(stemTerm);
+			Stemmer(stemTerm);
 			
 		}
 	}
@@ -43,9 +43,10 @@ public class token {
 		
 	
 
-	private void stemmer(String stemTerm) {
+	private void Stemmer(String stemTerm) {
 		// TODO Auto-generated method stub
 		String tmp = stemTerm.toLowerCase();
+		int stemtermlength= tmp.length();
 		FileInputStream fis = null;
 		DataInputStream dis=null;
 		BufferedReader br= null;
@@ -61,8 +62,14 @@ public class token {
 				 while(st.hasMoreTokens()){
 	                   String tmp1 = st.nextToken().toLowerCase();
 	                   if(tmp.endsWith(tmp1)){
+	                	  //strip off the suffix and check whether the new word is present in dic
+	                	   System.out.println("length of the suffix:" + tmp1.length());
+	                	   
+	                	   System.out.println(tmp.substring(stemtermlength, tmp1.length()));
+	                	   System.out.println(tmp);
+	               
 	                	   System.out.println("got your term " + tmp1);
-	                	   break;
+	                	   
 	                   }
 	                  
 	 		      
@@ -79,31 +86,6 @@ public class token {
 	
 	}
 
-//		Map<String, Integer> wordMap = new HashMap<String, Integer>();
-//	       try {
-//	           fis = new FileInputStream("suffix.txt");
-//	           dis = new DataInputStream(fis);
-//	           br = new BufferedReader(new InputStreamReader(dis));
-////	           String line = null;
-////	           while((line = br.readLine()) != null){
-////	               StringTokenizer st = new StringTokenizer(line, " ");
-////	               while(st.hasMoreTokens()){
-////	                   String tmp1 = st.nextToken().toLowerCase();
-////	                   if(wordMap.containsKey(tmp1)){
-////	                       wordMap.put(tmp1, wordMap.get(tmp1)+1);
-////	                   } else {
-////	                       wordMap.put(tmp1, 1);
-////	                   }
-////	               }
-//	           }
-//	       } catch (FileNotFoundException e) {
-//	           e.printStackTrace();
-//	       } catch (IOException e) {
-//	           e.printStackTrace();
-//	       } finally{
-//	           try{if(br != null) br.close();}catch(Exception ex){}
-//	       }
-//	       
 	       
 
 	
