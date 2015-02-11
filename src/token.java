@@ -79,4 +79,7 @@ public class token {
 	       
 
 	
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6675a792c881ecd77005d1708c52683e2ac1dc86
