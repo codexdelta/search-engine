@@ -3,78 +3,84 @@ import java.io.*;
 
 
 public class token {
-	public ArrayList<String> StemWords = new ArrayList<String>();
-	
-	public void QuerytoToken(String query){
-		int tokens = 0;
-		System.out.println("Your code is working!");
+	public ArrayList<String> stemWordsAfterCheck = new ArrayList<String>();
+
+	public ArrayList<String> QuerytoToken(String query){
 		StringTokenizer st = new StringTokenizer(query, " ");
 		ArrayList<String> al = new ArrayList<String>();
-			while(st.hasMoreTokens()){
-				al.add(st.nextToken());	
-				
-				tokens = tokens + 1;
-			}
-		System.out.println("Number of token are : " + tokens);
-		System.out.println(al);
+		while(st.hasMoreTokens()){
+			al.add(st.nextToken());
+		}
+		return al;
+	}
+	public void ListtoStem(ArrayList<String> al){
 		
-		for(int x=0; x<al.size(); x++){
-			String stemTerm = al.get(x);
-			Stemmer(stemTerm);
+		for(int c=0; c<al.size();c++){
 			
+			String tmp = al.get(c);
+			Stemmer(tmp);	
 		}
 	}
+	public void Stemmer(String tmp){
 		
-		//below code will work as stemmer	
-
-	private void Stemmer(String stemTerm) {
-		// TODO Auto-generated method stub
-		String tmp = stemTerm.toLowerCase();
-		int stemtermlength= tmp.length();
+		String stem = tmp.toLowerCase();
+		int stemLength = stem.length();
 		FileInputStream fis = null;
-		DataInputStream dis=null;
+		DataInputStream dis = null;
 		BufferedReader br= null;
 		
 		ArrayList<String> suffixList = new ArrayList<String>();
-		try{
+		try {
 			fis = new FileInputStream("suffix.txt");
 			dis = new DataInputStream(fis);
 			br = new BufferedReader(new InputStreamReader(dis));
-			String line =null;
+			String line = null;
+		while((line = br.readLine()) != null){
+			StringTokenizer st= new StringTokenizer(line, " ");
+			while(st.hasMoreTokens()){
+				String suffixTerm = st.nextToken().toLowerCase();
+				if(stem.endsWith(suffixTerm)){
+					//removing the suffix from the tokens
+					String StemforDictionary = stem.substring(0, stem.length()-suffixTerm.length());
+					System.out.print("job 2");
+					DictionaryCheck(StemforDictionary);
+				}
+			}
+		}
+		}catch (Exception e) {}
+	}
+	public void DictionaryCheck(String StemforDictionary){
+		System.out.print("job 3");
+		FileInputStream fis= null;
+		DataInputStream dis = null;
+		BufferedReader br = null;
+		
+		
+		try{
+			System.out.print("job 4");
+			fis = new FileInputStream("wordlist.txt");
+			dis = new DataInputStream(fis);
+			br= new BufferedReader(new InputStreamReader(dis));
+			String line = null;
 			while((line = br.readLine()) != null){
 				StringTokenizer st = new StringTokenizer(line, " ");
-				 while(st.hasMoreTokens()){
-	                   String tmp1 = st.nextToken().toLowerCase();
-	                   if(tmp.endsWith(tmp1)){
-	                	  //strip off the suffix and check whether the new word is present in dic
-//	                	   System.out.println("length of the suffix:" + tmp1.length());
-	                	   String PrimaryStemWords =tmp.substring(0, tmp.length()-tmp1.length());
-	                	   DictionaryTokenCheck(PrimaryStemWords);
-//	                	   System.out.println(PrimaryStemWords);
-	               
-//	                	   System.out.println("got your term " + tmp1);
-	                	   
-	                   }
-	                  
-	 		      
-				 }
+				while(st.hasMoreTokens()){
+					String Dictionarywords= st.nextToken().toLowerCase();
+					if(Dictionarywords.equalsIgnoreCase(StemforDictionary)){
+						stemWordsAfterCheck.add(Dictionarywords);
+					}
+				}
+			}
+		}catch (Exception e){}
+		System.out.println("job 5");
+		System.out.println(stemWordsAfterCheck.get(0));
+		for(int x=0; x<stemWordsAfterCheck.size();x++){
+			System.out.print("job 6");
+			System.out.println(stemWordsAfterCheck.get(x));
 		}
-			}catch (FileNotFoundException e) {
-	           e.printStackTrace();
-	       } catch (IOException e) {
-	           e.printStackTrace();
-	       } finally{
-	           try{if(br != null) br.close();}catch(Exception ex){}
-	       }
-		}
-	
-	public void DictionaryTokenCheck(String PrimaryStemWords){
-		StemWords.add(PrimaryStemWords);
-		System.out.println(StemWords.get(0));
-		
-		
 	}
-}
+	}
+
 
 	       
 

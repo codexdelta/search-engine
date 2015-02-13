@@ -12,15 +12,18 @@ public class first {
  */
 public static void main(String[] args)
 	{
+	ArrayList<String> al = new ArrayList<String>();
 	Scanner input = new Scanner(System.in);
 	token tokenObject = new token();
 	fileScanner fileScannerObject = new fileScanner();
 	System.out.print("Enter your query: ");
 	String query = input.nextLine();
-	tokenObject.QuerytoToken(query);
 	
-	String[] a = null;
-	fileScannerObject.FilteredFileList(a);
+	tokenObject.ListtoStem(tokenObject.QuerytoToken(query));
+	
+	//String[] a = null;
+	//fileScannerObject.FilteredFileList(a);
+	
 //    WordCount mdc = new WordCount();
 //    Map<String, Integer> wordMap = mdc.getWordCount("ashwin.txt");
 //    List<Entry<String, Integer>> list = mdc.sortByValue(wordMap);
