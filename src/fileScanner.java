@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 import java.io.BufferedReader;
-
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,40 +20,95 @@ import java.util.Map.Entry;
 
 
 public class fileScanner {
+	public File[] files= null;
 	public ArrayList<String> StemForTree = new ArrayList<String>();
-	public ArrayList<String> FileList = new ArrayList<String>();
 	public Map<String, Integer> wordMap = new HashMap<String, Integer>();
 	
-	public void check(ArrayList<String> al){
+	/*public void check(ArrayList<String> al){
 		StemForTree = (ArrayList<String>)al.clone();
 		System.out.println(StemForTree);
+		System.out.println("its working");		
+	}*/
+	public String fileLister(){
+		File file = new File("folder/");
+			files= file.listFiles(new FilenameFilter(){
+			
+			@Override
+			public boolean accept(File dir, String name){
+				if(name.toLowerCase().endsWith(".txt")){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		});
+		return null;
+	}
+	public void fileName(){
+		
 	}
 	
+	public void StemCounter(ArrayList passingStemToFileScanner) {
+		for(int n=0; n<passingStemToFileScanner.size();n++){
+			StemForTree.add((String) passingStemToFileScanner.get(n));
+			}
+		for(File f: files){
+			String rfile= f.getName();
+			example(rfile);
+			}
+		
+	}
+	public void example(String rfile){
+	// TODO Auto-generated method stub
+		FileInputStream fis =null;
+		 DataInputStream dis= null;
+		 BufferedReader br= null;
+		 
+		
+			try{
+				fis = new FileInputStream("folder/"+rfile);
+				dis = new DataInputStream(fis);
+				br= new BufferedReader(new InputStreamReader(dis));
+				String line = null;
+				while((line =br.readLine()) !=null){
+					StringTokenizer st= new StringTokenizer(line, " ");
+					 while(st.hasMoreTokens()){
+					 for(int a=0; a<StemForTree.size();a++){
+						 String queryStem =(String) StemForTree.get(a);
+						 String fileword=st.nextToken().toLowerCase();
+						 if(fileword.contains(queryStem)){
+							 if(wordMap.containsKey(rfile)){
+			                     wordMap.put(rfile, wordMap.get(rfile)+1);
+			                 } else {
+			                     wordMap.put(rfile, 1);
+			                 }
+						 }
+					 }
+					 }
+				}
+			}catch (FileNotFoundException e) {
+		         e.printStackTrace();
+		     } catch (IOException e) {
+		         e.printStackTrace();
+		     } finally{
+		         try{if(br != null) br.close();}catch(Exception ex){}
+		     }
+			
 	
+		printMap(wordMap);
+
+	}
+	public static void printMap(Map wordMap) {
+	    Iterator it = wordMap.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry pairs = (Map.Entry)it.next();
+	        System.out.println(pairs.getKey() + " = " + pairs.getValue());
+	        it.remove(); // avoids a ConcurrentModificationException
+	    }
+	}
+		
+	}
 	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*	public String FilteredFileList(String a[]) {
 	File file = new File("folder/");
@@ -79,33 +133,7 @@ public class fileScanner {
 	
 	
 	}
-*/	
- /*public ArrayList StemSearchInFile(ArrayList StemForTree){
-	 
-	 File file = new File("folder/");
-		File[] files = file.listFiles(new FilenameFilter(){
-			
-			@Override
-			public boolean accept(File dir, String name){
-				if(name.toLowerCase().endsWith(".txt")){
-					return true;
-				}else {
-					return false;
-				}
-			}
-		});
-		for(File f:files){
-			
-			String rfile = (String) f.getName();
-			FileList.add(rfile);
-			
-			}	
-		for(int z=0; z<FileList.size(); z++){
-			getWordCount(FileList.get(z));
-		}
-		return FileList;
-		}
-*/ 
+*/
 /* public void getWordCount(String filename){
 	  	FileInputStream fis = null;
 	     DataInputStream dis = null;

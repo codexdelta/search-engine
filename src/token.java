@@ -5,7 +5,7 @@ import sun.applet.Main;
 
 
 public class token {
-	public ArrayList<String> stemWordsAfterCheck = new ArrayList<String>();
+	public static ArrayList<String> stemWordsAfterCheck = new ArrayList<String>();
 	public HashSet finalStemWords = new HashSet();
 	public ArrayList<String> al = new ArrayList<String>();
 
@@ -16,14 +16,14 @@ public class token {
 			al.add(st.nextToken());
 		}
 	}
-	public void ListtoStem(){
+	public ArrayList TokentoStem(){
 		
 		for(int c=0; c<al.size();c++){
 			
 			String tmp = al.get(c);
 			Stemmer(tmp);	
 		}
-		sender();
+		return stemWordsAfterCheck;
 	}
 	public void Stemmer(String tmp){
 		
@@ -93,10 +93,10 @@ public class token {
 		}*/
 
 	}
-	public void sender(){
+	/*public void sender(){
 		first firstObject = new first();
 		first.TokenSenderToFileScanner(stemWordsAfterCheck);
-	}
+	}*/
 	
 	
 	
