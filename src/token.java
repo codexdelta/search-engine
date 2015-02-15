@@ -1,25 +1,29 @@
 import java.util.*;
 import java.io.*;
 
+import sun.applet.Main;
+
 
 public class token {
 	public ArrayList<String> stemWordsAfterCheck = new ArrayList<String>();
+	public HashSet finalStemWords = new HashSet();
+	public ArrayList<String> al = new ArrayList<String>();
 
-	public ArrayList<String> QuerytoToken(String query){
+	public void QuerytoToken(String query){
 		StringTokenizer st = new StringTokenizer(query, " ");
-		ArrayList<String> al = new ArrayList<String>();
+		
 		while(st.hasMoreTokens()){
 			al.add(st.nextToken());
 		}
-		return al;
 	}
-	public void ListtoStem(ArrayList<String> al){
+	public void ListtoStem(){
 		
 		for(int c=0; c<al.size();c++){
 			
 			String tmp = al.get(c);
 			Stemmer(tmp);	
 		}
+		sender();
 	}
 	public void Stemmer(String tmp){
 		
@@ -42,7 +46,7 @@ public class token {
 				if(stem.endsWith(suffixTerm)){
 					//removing the suffix from the tokens
 					String StemforDictionary = stem.substring(0, stem.length()-suffixTerm.length());
-					System.out.print("job 2");
+					
 					DictionaryCheck(StemforDictionary);
 				}
 			}
@@ -50,14 +54,14 @@ public class token {
 		}catch (Exception e) {}
 	}
 	public void DictionaryCheck(String StemforDictionary){
-		System.out.print("job 3");
+		
 		FileInputStream fis= null;
 		DataInputStream dis = null;
 		BufferedReader br = null;
 		
 		
 		try{
-			System.out.print("job 4");
+			
 			fis = new FileInputStream("wordlist.txt");
 			dis = new DataInputStream(fis);
 			br= new BufferedReader(new InputStreamReader(dis));
@@ -72,20 +76,32 @@ public class token {
 				}
 			}
 		}catch (Exception e){}
-		System.out.println("job 5");
-		System.out.println(stemWordsAfterCheck.get(0));
+		
+		
+		//this is just to remove duplicity of stem words from arraylist
+		/*finalStemWords.addAll(stemWordsAfterCheck);
+		stemWordsAfterCheck.clear();
+		stemWordsAfterCheck.addAll(finalStemWords);
+		String duplicateTerm = null;
+		
 		for(int x=0; x<stemWordsAfterCheck.size();x++){
-			System.out.print("job 6");
-			System.out.println(stemWordsAfterCheck.get(x));
-		}
+			duplicateTerm=stemWordsAfterCheck.get(x);
+			for( x=0; x<stemWordsAfterCheck.size();x++){
+			
+		
+			}
+		}*/
+
 	}
+	public void sender(){
+		first firstObject = new first();
+		first.TokenSenderToFileScanner(stemWordsAfterCheck);
 	}
+	
+	
+	
+}
 
 
 	       
 
-	
-<<<<<<< HEAD
-
-=======
->>>>>>> 6675a792c881ecd77005d1708c52683e2ac1dc86

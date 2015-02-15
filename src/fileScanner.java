@@ -1,4 +1,7 @@
+import java.io.*;
+import java.util.*;
 import java.io.BufferedReader;
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,10 +20,42 @@ import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
 
-public class fileScanner extends token{
+public class fileScanner {
 	public ArrayList<String> StemForTree = new ArrayList<String>();
 	public ArrayList<String> FileList = new ArrayList<String>();
 	public Map<String, Integer> wordMap = new HashMap<String, Integer>();
+	
+	public void check(ArrayList<String> al){
+		StemForTree = (ArrayList<String>)al.clone();
+		System.out.println(StemForTree);
+	}
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*	public String FilteredFileList(String a[]) {
 	File file = new File("folder/");
 	File[] files = file.listFiles(new FilenameFilter(){
@@ -45,7 +80,7 @@ public class fileScanner extends token{
 	
 	}
 */	
- public ArrayList StemSearchInFile(ArrayList StemForTree){
+ /*public ArrayList StemSearchInFile(ArrayList StemForTree){
 	 
 	 File file = new File("folder/");
 		File[] files = file.listFiles(new FilenameFilter(){
@@ -65,12 +100,12 @@ public class fileScanner extends token{
 			FileList.add(rfile);
 			
 			}	
-		/*for(int z=0; z<FileList.size(); z++){
+		for(int z=0; z<FileList.size(); z++){
 			getWordCount(FileList.get(z));
-		}*/
+		}
 		return FileList;
 		}
- 
+*/ 
 /* public void getWordCount(String filename){
 	  	FileInputStream fis = null;
 	     DataInputStream dis = null;
@@ -175,4 +210,4 @@ public class fileScanner extends token{
 //     return list;
  }
 */
-}
+
