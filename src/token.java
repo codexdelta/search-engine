@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-import sun.applet.Main;
+//import sun.applet.Main;
 
 
 public class token {
