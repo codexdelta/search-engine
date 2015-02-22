@@ -2,9 +2,9 @@ import java.io.*;
 import java.util.*;
 
 public class fileScanner extends token{
-	public File[] files= null;
+	public static File[] files= null;
 	
-	public Map<String, Integer> wordMap = new HashMap<String, Integer>();
+	public static Map<String,Integer> wordMap = new TreeMap<String, Integer>();
 	public static ArrayList<String> keywords;
 	public String fileLister(){
 		File file = new File("folder/");
@@ -26,8 +26,9 @@ public class fileScanner extends token{
 		 keywords = new ArrayList<>(set);
 		for(File f: files){
 			String rfile= f.getName();
-			example(rfile);
+			example(rfile);			
 			}
+		PrintMap();
 		
 	}
 	public void example(String rfile){
@@ -37,7 +38,7 @@ public class fileScanner extends token{
 		 DataInputStream dis= null;
 		 BufferedReader br= null;
 			try{
-				fis = new FileInputStream("folder/"+rfile);
+				fis = new FileInputStream("folder/"+ rfile);
 				dis = new DataInputStream(fis);
 				br= new BufferedReader(new InputStreamReader(dis));
 				String line = null;
@@ -68,22 +69,30 @@ public class fileScanner extends token{
 		     }
 			
 	
-		printMap(wordMap);
+//		printMap(wordMap);
 
 	}
-	public static void printMap(Map wordMap) {
+	public static void PrintMap() {
 		
-	
+		
+		
 		if(keywords.isEmpty()){
 			System.out.println("Entered Keyword/s is not present in the folder.");
 		}
+		
+		
+//			System.out.println(rfile+ " : "+ wordMap.get(rfile));
+			
+		
+	
 	    Iterator it = wordMap.entrySet().iterator();
 	    while (it.hasNext()) {
-	        Map.Entry pairs = (Map.Entry)it.next();
+	        Map.Entry pairs = (Map.Entry)it.next();	        
 	        System.out.println(pairs.getKey() + " = " + pairs.getValue());
 	        it.remove(); // avoids a ConcurrentModificationException
+	       // System.out.println(once.fileName);
 	    }
-	}
+	    }
 		
 	}
 	
