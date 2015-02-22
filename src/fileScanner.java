@@ -1,11 +1,11 @@
 import java.io.*;
 import java.util.*;
 
-public class fileScanner {
+public class fileScanner extends token{
 	public File[] files= null;
-	public ArrayList<String> StemForTree = new ArrayList<String>();
+	
 	public Map<String, Integer> wordMap = new HashMap<String, Integer>();
-
+	public static ArrayList<String> keywords;
 	public String fileLister(){
 		File file = new File("folder/");
 			files= file.listFiles(new FilenameFilter(){
@@ -20,15 +20,10 @@ public class fileScanner {
 			}
 		});
 		return null;
-	}
-	public void fileName(){
-		
-	}
-	
-	public void StemCounter(ArrayList passingStemToFileScanner) {
-		for(int n=0; n<passingStemToFileScanner.size();n++){
-			StemForTree.add((String) passingStemToFileScanner.get(n));
-			}
+	}	
+	public void StemCounter() {
+		 HashSet<String> set = new HashSet<>(stemWordsAfterCheck);
+		 keywords = new ArrayList<>(set);
 		for(File f: files){
 			String rfile= f.getName();
 			example(rfile);
@@ -36,31 +31,32 @@ public class fileScanner {
 		
 	}
 	public void example(String rfile){
+		
 	// TODO Auto-generated method stub
 		FileInputStream fis =null;
 		 DataInputStream dis= null;
 		 BufferedReader br= null;
-		 
-		
 			try{
 				fis = new FileInputStream("folder/"+rfile);
 				dis = new DataInputStream(fis);
 				br= new BufferedReader(new InputStreamReader(dis));
 				String line = null;
 				while((line =br.readLine()) !=null){
+					
 					StringTokenizer st= new StringTokenizer(line, " ");
 					 while(st.hasMoreTokens()){
-					 for(int a=0; a<StemForTree.size();a++){
-						 String queryStem =(String) StemForTree.get(a);
-						 String fileword=st.nextToken().toLowerCase();
-						 if(fileword.contains(queryStem)){
-							 if(wordMap.containsKey(rfile)){
-			                     wordMap.put(rfile, wordMap.get(rfile)+1);
-			                 } else {
-			                     wordMap.put(rfile, 1);
-			                 }
+						 
+						 String fileWord = st.nextToken().toLowerCase();
+						 for(int a=0; a<keywords.size();a++){
+							 String queryStem = keywords.get(a);
+							 if(fileWord.contains(queryStem)){
+								 if(wordMap.containsKey(rfile)){
+				                     wordMap.put(rfile, wordMap.get(rfile)+1);
+				                 } else {
+				                     wordMap.put(rfile, 1);
+				                 }
+							 }else{}
 						 }
-					 }
 					 }
 				}
 			}catch (FileNotFoundException e) {
@@ -76,6 +72,11 @@ public class fileScanner {
 
 	}
 	public static void printMap(Map wordMap) {
+		
+	
+		if(keywords.isEmpty()){
+			System.out.println("Entered Keyword/s is not present in the folder.");
+		}
 	    Iterator it = wordMap.entrySet().iterator();
 	    while (it.hasNext()) {
 	        Map.Entry pairs = (Map.Entry)it.next();

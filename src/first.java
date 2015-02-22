@@ -10,7 +10,7 @@ public class first {
 /** 
  * @param args
  */
-	public static ArrayList<String> passingStemToFileScanner = new ArrayList<String>();
+	
 public static void main(String args[])
 	{	
 	Scanner input = new Scanner(System.in);
@@ -20,8 +20,8 @@ public static void main(String args[])
 	System.out.print("Enter your query: ");
 	String query = input.nextLine();
 	tokenObject.QuerytoToken(query);
-	ArrayList<String> passingStemToFileScanner = tokenObject.TokentoStem();
-	fileScannerObject.StemCounter(passingStemToFileScanner);
+	tokenObject.TokentoStem();
+	fileScannerObject.StemCounter();
 	}
 // public ArrayList al= new ArrayList<String>();
 /*public static void TokenSenderToFileScanner(ArrayList al){

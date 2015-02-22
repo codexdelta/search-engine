@@ -11,7 +11,6 @@ public class token {
 
 	public void QuerytoToken(String query){
 		StringTokenizer st = new StringTokenizer(query, " ");
-		
 		while(st.hasMoreTokens()){
 			al.add(st.nextToken());
 		}
@@ -76,6 +75,7 @@ public class token {
 				}
 			}
 		}catch (Exception e){}
+		
 		
 		
 		//this is just to remove duplicity of stem words from arraylist
