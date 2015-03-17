@@ -1,9 +1,6 @@
 import java.util.*;
 import java.io.*;
 
-//import sun.applet.Main;
-
-
 public class token {
 	public static ArrayList<String> stemWordsAfterCheck = new ArrayList<String>();
 	public HashSet finalStemWords = new HashSet();

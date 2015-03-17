@@ -3,7 +3,6 @@ import java.util.*;
 
 public class fileScanner extends token{
 	public static File[] files= null;
-	
 	public static Map<String,Integer> wordMap = new TreeMap<String, Integer>();
 	public static ArrayList<String> keywords;
 	public String fileLister(){
@@ -34,7 +33,7 @@ public class fileScanner extends token{
 	public void example(String rfile){
 		
 	// TODO Auto-generated method stub
-		FileInputStream fis =null;
+		 FileInputStream fis =null;
 		 DataInputStream dis= null;
 		 BufferedReader br= null;
 			try{
