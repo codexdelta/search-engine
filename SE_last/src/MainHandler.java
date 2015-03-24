@@ -19,13 +19,17 @@ public class MainHandler {
 		Scanner input = new Scanner(System.in);
 		TokenHandler tokenHandler = new TokenHandler();
 		FileHandler fileHandler = new FileHandler();
+		fileHandler.EmptyTreeMap();
 		System.out.println("Enter your Query : ");
 		String query = input.nextLine();
 		// if check condition for empty query 
+		if(query.isEmpty()){
+			System.out.println("Please enter query");
+			SearchAgain();
+		}
 		tokenHandler.setQuery(query);
 		tokenHandler.QueryToToken();
 		tokenHandler.TokenToStem();
-		System.out.println("passing control to filehandler.stemcounterinfile");
 		fileHandler.StemCounterInFile();
 		fileHandler.PrintResult();
 		

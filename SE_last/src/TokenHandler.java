@@ -6,6 +6,7 @@ public class TokenHandler {
 	private ArrayList<String> al = new ArrayList<String>();
 	private ArrayList<String> suffixList = new ArrayList<String>();
 	public static ArrayList<String> stemWordsAfterCheck = new ArrayList<String>();
+	public String rootWord;
 	public static ArrayList<String> getStemWordsAfterCheck() {
 		return stemWordsAfterCheck;
 	}
@@ -40,20 +41,26 @@ public void QueryToToken(){
 	StringTokenizer st = new StringTokenizer(getQuery(), " ");
 	while(st.hasMoreTokens()){
 		String temp = st.nextToken();
+		if(temp.equalsIgnoreCase("is") || temp.equalsIgnoreCase("this") || temp.equalsIgnoreCase("the") || temp.equalsIgnoreCase("are")
+				|| temp.equalsIgnoreCase("because") || temp.equalsIgnoreCase("of") || temp.equalsIgnoreCase("if") 
+				|| temp.equalsIgnoreCase("there") || temp.equalsIgnoreCase("their") || temp.equalsIgnoreCase("how") 
+				|| temp.equalsIgnoreCase("what") || temp.equalsIgnoreCase("where") || temp.equalsIgnoreCase("would") 
+				|| temp.equalsIgnoreCase("shall") || temp.equalsIgnoreCase("should") || temp.equalsIgnoreCase("could") 
+				|| temp.equalsIgnoreCase("can") || temp.equalsIgnoreCase("not") || temp.equalsIgnoreCase("we") || temp.equalsIgnoreCase("i") 
+				|| temp.equalsIgnoreCase("be") || temp.equalsIgnoreCase("cannot") || temp.equalsIgnoreCase("you") || temp.equalsIgnoreCase("your")
+				|| temp.equalsIgnoreCase("he") || temp.equalsIgnoreCase("she"))
+		{}
+		else{
 		al.add(temp.toLowerCase());
 	}
+		}
 }
 
 public void TokenToStem(){
 	for(int z= 0 ; z<al.size(); z++){
-//		System.out.println("ashwin");
 		stemWordsAfterCheck.add(al.get(z));
-//		System.out.println(stemWordsAfterCheck.get(z));
 		SuffixCheck(al.get(z));
-	}
-	for(int z= 0 ; z<al.size(); z++){
-		stemWordsAfterCheck.get(z);
-	}
+		}
 }
 /*public void SuffixCheck(String temp){
 	int lengthOfTemp = temp.length();
@@ -267,9 +274,9 @@ public void TokenToStem(){
 		}
 	}
 */
+
 public void SuffixCheck(String temp){
 	int stemLength = temp.length();
-//	System.out.println(stemLength);
 	FileInputStream fis = null;
 	DataInputStream dis = null;
 	BufferedReader br= null;
@@ -284,17 +291,39 @@ public void SuffixCheck(String temp){
 		while(st.hasMoreTokens()){
 			String suffixTerm = st.nextToken().toLowerCase();
 			if(temp.endsWith(suffixTerm)){
-				//removing the suffix from the tokens
 				String StemforDictionary = temp.substring(0, temp.length()-suffixTerm.length());
-				System.out.println(StemforDictionary);
-				System.out.println("going to dictionary check");
+				// if you want to use a custom porter algo this would your workspace
+				DictionaryStemWords(StemforDictionary);
 				DictionaryCheck(StemforDictionary);
+				//System.out.println(StemforDictionary);
 			}
 		}
 	}
 	}catch (Exception e) {}
 }
+public void DictionaryStemWords(String temp){
+	FileInputStream fis = null;
+	DataInputStream dis = null;
+	BufferedReader br= null;	
+	try{
+		
+		fis = new FileInputStream("wordlist.txt");
+		dis = new DataInputStream(fis);
+		br= new BufferedReader(new InputStreamReader(dis));
+		String line = null;
+		while((line = br.readLine()) != null){
+			StringTokenizer st = new StringTokenizer(line, " ");
+			while(st.hasMoreTokens()){
+				String Dictionarywords= st.nextToken().toLowerCase();
+				if(Dictionarywords.contains(temp)){
+					stemWordsAfterCheck.add(Dictionarywords);
+					
+				}else{}
+			}
+		}
+	}catch (Exception e){}	
 
+}
 public void DictionaryCheck(String temp){
 	
 	FileInputStream fis = null;
@@ -311,14 +340,21 @@ public void DictionaryCheck(String temp){
 			while(st.hasMoreTokens()){
 				String Dictionarywords= st.nextToken().toLowerCase();
 				if(Dictionarywords.equalsIgnoreCase(temp)){
-					System.out.println(temp+" inside dictionary check");
 					stemWordsAfterCheck.add(temp);
-					for(int y= 0; y<stemWordsAfterCheck.size(); y++){
-						System.out.println(stemWordsAfterCheck.get(y)+ " after dic check stems in stemWordsAfterCheck");
-					}
-				}
+					rootWord = temp;
+				}else if(Dictionarywords.contains(temp)){
+					stemWordsAfterCheck.add(temp);
+				}else{}
 			}
 		}
 	}catch (Exception e){}	
+}
+
+public String getRootWord() {
+	return rootWord;
+}
+
+public void setRootWord(String rootWord) {
+	this.rootWord = rootWord;
 }
 }

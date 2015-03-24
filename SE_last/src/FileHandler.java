@@ -12,12 +12,22 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
+import java.util.*;
+import java.lang.Object;
 
 
 public class FileHandler {
 	
+	private int count = 0;
 	private ArrayList<String> stemWordsFinal;
 	private static Map<String,Integer> wordMap = new TreeMap<String,Integer>();
+	private Object[][] arr = new Object[wordMap.size()][wordMap.size()];
+	public Object[][] getArr() {
+		return arr;
+	}
+	public void setArr(Object[][] arr) {
+		this.arr = arr;
+	}
 	public static Map<String, Integer> getWordMap() {
 		return wordMap;
 	}
@@ -45,13 +55,8 @@ public class FileHandler {
 		 TokenHandler tokenHandler = new TokenHandler();
 		 HashSet<String> set = new HashSet<>(tokenHandler.getStemWordsAfterCheck());
 		 stemWordsFinal = new ArrayList<String>(set);
-		for(int a= 0; a<stemWordsFinal.size(); a++){
-			System.out.println(stemWordsFinal.get(a)+" Stemwords after getting inside the stemcounterinfile");
-		}
 		for(File f: files){
 			//String file= f.getName();
-				
-				System.out.println(f.getName() + " printing the name of the file");
 				FileInputStream fis =null;
 				 DataInputStream dis= null;
 				 BufferedReader br= null;
@@ -89,12 +94,52 @@ public class FileHandler {
 	
 
 public void PrintResult(){
-	for (Entry<String, Integer> entry : wordMap.entrySet()) {
-	    String key = entry.getKey();
-	    Integer value = entry.getValue();
-
-	    System.out.println(key + " : " + value);
+	TokenHandler tokenHandler = new TokenHandler();
+	int sum = 0, avg;
+	
+	for (Entry<String, Integer> entry1 : wordMap.entrySet()) {
+		
+	    String key = entry1.getKey();
+	    Integer value = entry1.getValue();
+	    
+	    		key = key.substring(0, key.length() - 4);
+//	    		ResultClass key1 = new ResultClass();
+	    		if(key.equals(null)){
+	    			System.out.println("No file found please enter a new query");
+	    		}else{
+	    			sum = sum + value;
+	    			System.out.println(key + " : " + value);
+	    			test(value, key);
+	    		}
+	    		
+	    }
+	avg = sum / wordMap.size();
+	System.out.println("Result After BST application: ");
+	for (Entry<String, Integer> entry1 : wordMap.entrySet()){
+		 String key = entry1.getKey();
+		 Integer value = entry1.getValue();
+		 if(value>=avg){
+			 System.out.println(key + " : " + value);
+		 }
 	}
+	BinarySearchTree tree = new BinarySearchTree();
+	tree.traverse();
+	
+	
+	
+}
+//testing with the Bst
+	
+		public void test(Integer data, String term){
+			BinarySearchTree tree = new BinarySearchTree();
+			
+			tree.add(data,term);
+			
+		}
+		
+
+public void EmptyTreeMap(){
+	wordMap.clear();
 }
 	}
 	

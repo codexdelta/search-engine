@@ -1,11 +1,9 @@
-package tree;
-
-
 public class BinarySearchTree {
 	// Node -> key(data)
 	//	-> 2 children(lChild and rchild)
-	Node root;
+	static Node root;
 	public void add(int data, String term){
+//		System.out.println("Created the new Root");
 		Node nodeToAdd = new Node(data, term);
 		if(root == null)
 			root = nodeToAdd;
@@ -14,7 +12,7 @@ public class BinarySearchTree {
 		traverseAndAddNode(root, nodeToAdd);
 	}
 	private void traverseAndAddNode(Node node, Node nodeToAdd){
-		if(nodeToAdd.data < node.data )
+		if(nodeToAdd.data <= node.data && nodeToAdd.term != node.term )
 		{
 			if(node.leftChild == null){
 				node.leftChild = nodeToAdd;
@@ -23,7 +21,7 @@ public class BinarySearchTree {
 				traverseAndAddNode(node.leftChild, nodeToAdd);
 			}
 		}
-			else if(nodeToAdd.data > node.data){
+			else if(nodeToAdd.data >= node.data && nodeToAdd.term != node.term){
 				if(node.rightChild == null){
 					node.rightChild = nodeToAdd;
 				}
@@ -35,8 +33,10 @@ public class BinarySearchTree {
 	
 	public void traverse()
 	{
+		System.out.println("entered into traverse");
 		if(root != null)
 		{
+
 			Node nodeToTraverse = root;
 			if(nodeToTraverse.leftChild == null && nodeToTraverse.rightChild == null)
 			{
@@ -64,18 +64,18 @@ public class BinarySearchTree {
 		{
 			inOrderTraversal(node.leftChild);
 		}
-		System.out.println(node.data);
-		System.out.println(node.term);
+		System.out.println(node.data +" "+node.term);
+		
 		if(node.rightChild != null)
 		{
 			inOrderTraversal(node.rightChild);
 		}
 	}
-/*	private void preOrderTraversal(Node node)
+	/*private void preOrderTraversal(Node node)
 	{
 
-		System.out.println(node.data);
-		System.out.println(node.term);
+		System.out.println(node.data+" "+node.term);
+		
 		if(node.leftChild !=null)
 		{
 			preOrderTraversal(node.leftChild);
@@ -84,7 +84,7 @@ public class BinarySearchTree {
 		{
 			preOrderTraversal(node.rightChild);
 		}
-	}
-*/	
+	}*/
+
 	
 }
